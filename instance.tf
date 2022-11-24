@@ -1,10 +1,26 @@
+data "aws_ami" "amazonlinux" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["amzn2-ami-kernel"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  owners = ["373192543100"]
+}
+
 resource "aws_instance" "public" {
-  ami                         = "ami-0b0dcb5067f052a63"
+  ami                         = data.aws_ami.amazonlinux.id
   associate_public_ip_address = true
   instance_type               = "t3.micro"
   key_name                    = "DevOpsKP"
   vpc_security_group_ids      = [aws_security_group.public.id]
-  subnet_id                   = aws_subnet.public[0].id
+  subnet_id                   = aws_subnet.public[1].id
 
   tags = {
     Name = "${var.env_code}"
@@ -37,8 +53,7 @@ resource "aws_security_group" "public" {
 }
 
 resource "aws_instance" "private" {
-  ami = "ami-0b0dcb5067f052a63"
-
+  ami                    = data.aws_ami.amazonlinux.id
   instance_type          = "t3.micro"
   key_name               = "DevOpsKP"
   vpc_security_group_ids = [aws_security_group.private.id]
