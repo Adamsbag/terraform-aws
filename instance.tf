@@ -17,10 +17,10 @@ data "aws_ami" "amazonlinux" {
 resource "aws_instance" "public" {
   ami                         = data.aws_ami.amazonlinux.id
   associate_public_ip_address = true
-  instance_type               = "t2.micro"
+  instance_type               = "t3.micro"
   key_name                    = "DevOpsKP"
   vpc_security_group_ids      = [aws_security_group.public.id]
-  subnet_id                   = aws_subnet.public[0].id
+  subnet_id                   = aws_subnet.public[2].id
 
   user_data = file("user-data.sh")
 
