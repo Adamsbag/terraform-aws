@@ -5,6 +5,13 @@ terraform {
       version = "~> 4.0"
     }
   }
+
+  backend "s3" {
+    bucket         = "terraform-remote-state-adamab"
+    key            = "terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "terraform-remote-db"
+  }
 }
 
 # Configure the AWS Provider

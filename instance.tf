@@ -20,7 +20,7 @@ resource "aws_instance" "public" {
   instance_type               = "t3.micro"
   key_name                    = "DevOpsKP"
   vpc_security_group_ids      = [aws_security_group.public.id]
-  subnet_id                   = aws_subnet.public[0].id
+  subnet_id                   = aws_subnet.public[2].id
 
   user_data = file("user-data.sh")
 
