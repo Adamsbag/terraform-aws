@@ -9,3 +9,5 @@ Resources:
 - At least two NAT gateways
 - Public route table
 - At least two private route tables
+
+Provisioned EC2 and Configured a webserver that will host 2048 game.
