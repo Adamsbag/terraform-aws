@@ -10,4 +10,4 @@ Resources:
 - Public route table
 - At least two private route tables
 
-Provisioned EC2 and Configured a webserver that will host 2048 game.
+Created a layered Terraform configuration file architecture using remote state, data source and outputs to avoid single point of failure of the infrastructure configuration.
