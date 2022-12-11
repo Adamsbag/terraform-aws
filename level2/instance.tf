@@ -17,7 +17,7 @@ data "aws_ami" "amazonlinux" {
 resource "aws_instance" "public" {
   ami                         = data.aws_ami.amazonlinux.id
   associate_public_ip_address = true
-  instance_type               = "t3.micro"
+  instance_type               = "t2.micro"
   key_name                    = "DevOpsKP"
   vpc_security_group_ids      = [aws_security_group.public.id]
   subnet_id                   = data.terraform_remote_state.level1.outputs.public_subnet_id[0]
@@ -59,18 +59,6 @@ resource "aws_security_group" "public" {
 
   tags = {
     Name = "${var.env_code}-public"
-  }
-}
-
-resource "aws_instance" "private" {
-  ami                    = data.aws_ami.amazonlinux.id
-  instance_type          = "t2.micro"
-  key_name               = "DevOpsKP"
-  vpc_security_group_ids = [aws_security_group.private.id]
-  subnet_id              = data.terraform_remote_state.level1.outputs.private_subnet_id[1]
-
-  tags = {
-    Name = "${var.env_code}"
   }
 }
 
