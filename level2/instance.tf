@@ -68,6 +68,14 @@ resource "aws_security_group" "private" {
   vpc_id      = data.terraform_remote_state.level1.outputs.vpc_id
 
   ingress {
+    description     = "HTTP from load balancer"
+    from_port       = 80
+    to_port         = 80
+    protocol        = "tcp"
+    security_groups = [aws_security_group.load_balancer.id]
+  }
+
+  ingress {
     description = "SSH from VPC"
     from_port   = 22
     to_port     = 22

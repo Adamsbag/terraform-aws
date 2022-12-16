@@ -9,3 +9,5 @@ variable "private_cidr" {}
 variable "public_cidr" {}
 
 variable "public_az" {}
+
+variable "private_az" {}
