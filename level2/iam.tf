@@ -1,23 +1,7 @@
-resource "aws_iam_policy" "main" {
-  name        = var.env_code
-  description = var.env_code
-  policy      = <<EOF
-{
-   "Version": "2012-10-17",
-     "Statement": [
-       {
-           "Effect": "Allow",
-           "Action": "s3:*",
-           "Resource": "*"
-        }
-    ]
-}
-EOF
-}
-
 resource "aws_iam_role" "main" {
-  name               = var.env_code
-  assume_role_policy = <<EOF
+  name                = var.env_code
+  managed_policy_arns = ["arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM"]
+  assume_role_policy  = <<EOF
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -32,11 +16,6 @@ resource "aws_iam_role" "main" {
     ]
 }
 EOF
-}
-
-resource "aws_iam_role_policy_attachment" "main" {
-  role       = aws_iam_role.main.name
-  policy_arn = aws_iam_policy.main.arn
 }
 
 resource "aws_iam_instance_profile" "main" {
